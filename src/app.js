@@ -59,15 +59,24 @@ function renderEditor() {
 function addLinkRow(link = { url: "", title: "", description: "", tags: [] }, shouldRender = true) {
   const row = document.createElement("div");
   row.className = "link-row";
-  row.innerHTML = `<div class="row-head"><strong>Link</strong><button class="remove" type="button">Remove</button></div>
-    <label>URL<input class="url" value="${escapeAttr(link.url || "")}" placeholder="https://example.com"></label>
-    <label>Title<input class="link-title" value="${escapeAttr(link.title || "")}"></label>
-    <label>Description<textarea class="link-description" rows="2">${escapeHtml(link.description || "")}</textarea></label>
+  const number = document.querySelectorAll(".link-row").length + 1;
+  row.innerHTML = `<div class="row-head"><strong>${number}</strong><button class="remove" type="button" aria-label="Remove link ${number}">Remove</button></div>
+    <label>Website URL<input class="url" value="${escapeAttr(link.url || "")}" placeholder="https://example.com"></label>
+    <label>Display title<input class="link-title" value="${escapeAttr(link.title || "")}" placeholder="Example article"></label>
+    <label>Why include it?<textarea class="link-description" rows="2" placeholder="A short note that helps someone understand this link.">${escapeHtml(link.description || "")}</textarea></label>
     <label>Tags<input class="tags" value="${escapeAttr((link.tags || []).join(", "))}" placeholder="research, design"></label>`;
-  row.querySelector(".remove").addEventListener("click", () => { row.remove(); renderOutputFromForm(); });
+  row.querySelector(".remove").addEventListener("click", () => { row.remove(); renumberLinks(); renderOutputFromForm(); });
   row.querySelectorAll("input, textarea").forEach((input) => input.addEventListener("input", renderOutputFromForm));
   $("links").append(row);
   if (shouldRender) renderOutputFromForm();
+}
+
+function renumberLinks() {
+  document.querySelectorAll(".link-row").forEach((row, index) => {
+    const number = index + 1;
+    row.querySelector(".row-head strong").textContent = number;
+    row.querySelector(".remove").setAttribute("aria-label", `Remove link ${number}`);
+  });
 }
 
 function renderOutputFromForm() { readForm(); renderOutput(); }

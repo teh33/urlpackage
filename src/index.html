@@ -17,43 +17,51 @@
 
     <section class="intro">
       <p class="eyebrow">Draft 0.1</p>
-      <h1>Portable link collections.</h1>
-      <p>URLPackage is a simple JSON format for lists of websites with titles, descriptions, images, tags, and version metadata.</p>
-      <pre>{
-  "urlpackage": "0.1",
-  "title": "Starter links",
-  "links": [{ "url": "https://example.com" }]
-}</pre>
-      <div class="actions">
-        <button id="load-example">Load example</button>
-        <label class="button">Open file <input id="file" type="file" accept=".json,.urlpackage,application/json"></label>
-        <button id="download">Export JSON</button>
+      <h1>Make a portable pack of links.</h1>
+      <p>Use this page to open, edit, preview, and export a <code>.urlpackage.json</code> file — a shareable playlist for websites.</p>
+      <ol class="steps">
+        <li><strong>Load</strong> an example or open your own file.</li>
+        <li><strong>Edit</strong> the collection and its links.</li>
+        <li><strong>Export</strong> the JSON file to share or publish anywhere.</li>
+      </ol>
+      <div class="actions" aria-label="Start using URLPackage">
+        <button id="load-example">Try the example</button>
+        <label class="button">Open a package <input id="file" type="file" accept=".json,.urlpackage,application/json"></label>
+        <button id="download">Download package</button>
       </div>
     </section>
 
-    <section class="tool">
+    <section class="tool" aria-label="URLPackage editor">
       <div>
-        <h2>Edit</h2>
-        <label>Title<input id="title"></label>
-        <label>Description<textarea id="description" rows="3"></textarea></label>
+        <p class="eyebrow">1. Describe the collection</p>
+        <h2>What is this link pack?</h2>
+        <p class="hint">This metadata helps browsers, apps, and people present the package nicely.</p>
+        <label>Package title<input id="title" placeholder="My research links"></label>
+        <label>Short description<textarea id="description" rows="3" placeholder="A curated set of links about..."></textarea></label>
         <div class="split">
-          <label>Version<input id="version"></label>
-          <label>Image URL<input id="image"></label>
+          <label>Version<input id="version" placeholder="0.1.0"></label>
+          <label>Cover image URL<input id="image" placeholder="https://..."></label>
         </div>
-        <h3>Links</h3>
+
+        <p class="eyebrow step-label">2. Add links</p>
+        <h2>What websites belong in it?</h2>
+        <p class="hint">Each link needs a URL. Titles, descriptions, and tags make the package easier to scan.</p>
         <div id="links"></div>
-        <button id="add-link">Add link</button>
+        <button id="add-link">Add another link</button>
       </div>
 
       <div>
-        <h2>Package <span id="status">Ready</span></h2>
+        <p class="eyebrow">3. Preview and export</p>
+        <h2>Shareable package <span id="status">Ready</span></h2>
+        <p class="hint">The preview shows how a client could display the package. The JSON below is the actual portable file.</p>
         <article id="preview"></article>
         <p id="count"></p>
-        <textarea id="json" spellcheck="false"></textarea>
+        <label>Package JSON<textarea id="json" spellcheck="false"></textarea></label>
       </div>
     </section>
 
     <footer>
+      <span>Open format, no account required.</span>
       <a href="schema/urlpackage.schema.json">Schema</a>
       <a href="docs/spec.md">Spec</a>
       <a href="examples/starter.urlpackage.json">Example</a>
