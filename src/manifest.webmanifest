@@ -1,0 +1,10 @@
+{
+  "name": "URLPackage",
+  "short_name": "URLPackage",
+  "description": "Create and edit portable packages of web links.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#111827",
+  "theme_color": "#f97316",
+  "icons": []
+}

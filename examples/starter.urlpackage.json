@@ -1,0 +1,36 @@
+{
+  "urlpackage": "0.1",
+  "id": "dev.urlpackage.web-playlists",
+  "title": "Web Playlists Starter Kit",
+  "description": "A short pack of links about portable web collections and open formats.",
+  "version": "0.1.0",
+  "homepage": "https://urlpackage.dev/",
+  "createdAt": "2026-05-21T00:00:00Z",
+  "updatedAt": "2026-05-21T00:00:00Z",
+  "tags": ["open-web", "bookmarks", "curation"],
+  "authors": [{ "name": "URLPackage contributors" }],
+  "links": [
+    {
+      "url": "https://www.w3.org/TR/appmanifest/",
+      "title": "Web Application Manifest",
+      "description": "A related W3C format for describing web app presentation metadata.",
+      "tags": ["standard", "metadata"],
+      "status": "ok",
+      "lastKnownGood": "2026-05-21T00:00:00Z"
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/OPML",
+      "title": "OPML",
+      "description": "An older XML outline format often used for exchanging feeds and lists.",
+      "tags": ["prior-art"],
+      "status": "ok"
+    },
+    {
+      "url": "https://json-schema.org/",
+      "title": "JSON Schema",
+      "description": "The validation language used by this draft package format.",
+      "tags": ["validation"],
+      "status": "ok"
+    }
+  ]
+}

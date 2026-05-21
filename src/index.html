@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Create, edit, validate, and export portable URLPackage link collections.">
+  <title>URLPackage — playlists for the web</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="hero">
+    <nav><strong>URLPackage</strong><a href="https://github.com/kfcafe/urlpackage">GitHub</a></nav>
+    <p class="eyebrow">Open format · portable files · browser-native</p>
+    <h1>Playlists for the web.</h1>
+    <p class="lede">Trade, store, remix, and publish collections of links as simple versioned JSON packages that work on desktop and mobile browsers.</p>
+    <div class="actions"><button id="load-example">Load example</button><label class="file">Open file <input id="file" type="file" accept=".json,.urlpackage,application/json"></label><button id="download">Export .urlpackage.json</button></div>
+  </header>
+
+  <main>
+    <section class="panel editor">
+      <div class="section-title"><h2>Package</h2><span id="status">Ready</span></div>
+      <label>Title<input id="title"></label>
+      <label>Description<textarea id="description" rows="3"></textarea></label>
+      <div class="grid"><label>Version<input id="version"></label><label>Image URL<input id="image"></label></div>
+      <h3>Links</h3>
+      <div id="links"></div>
+      <button id="add-link" class="secondary">Add link</button>
+    </section>
+
+    <section class="panel preview">
+      <div class="section-title"><h2>Preview</h2><span id="count"></span></div>
+      <article id="preview"></article>
+      <h3>JSON</h3>
+      <textarea id="json" spellcheck="false"></textarea>
+    </section>
+  </main>
+
+  <footer>
+    <p>Draft 0.1. Plain JSON today; zip bundles with assets later. Exported packages remain yours.</p>
+    <p><a href="schema/urlpackage.schema.json">Schema</a> · <a href="docs/spec.md">Spec</a> · <a href="examples/starter.urlpackage.json">Example</a></p>
+  </footer>
+  <script src="app.js"></script>
+</body>
+</html>
