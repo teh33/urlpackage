@@ -11,7 +11,14 @@ This repository contains:
 
 ## Use
 
-Open the GitHub Pages site, paste or upload a package, edit links and metadata, validate it, then export JSON.
+Open the GitHub Pages site to create a portable link package:
+
+- describe the collection with title, version, description, cover image, and icon;
+- add links with title, description, image, tags, notes, status, and last-known-good timestamp;
+- preview how a client could present it;
+- export as `.urlpackage.json`, Markdown, bookmarks HTML, or a static HTML page.
+
+The page can also load a package from a direct URL when the host allows browser CORS.
 
 ## Format
 

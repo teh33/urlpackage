@@ -3,61 +3,80 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="URLPackage is a tiny open format for portable collections of links.">
+  <meta name="description" content="URLPackage is an open format and browser tool for portable collections of links.">
   <title>URLPackage</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <main>
-    <nav>
-      <strong>URLPackage</strong>
-      <a href="https://github.com/teh33/urlpackage">GitHub</a>
-    </nav>
+    <nav><strong>URLPackage</strong><a href="https://github.com/teh33/urlpackage">GitHub</a></nav>
 
     <section class="intro">
-      <p class="eyebrow">Draft 0.1</p>
-      <h1>Make a portable pack of links.</h1>
-      <p>Use this page to open, edit, preview, and export a <code>.urlpackage.json</code> file — a shareable playlist for websites.</p>
-      <ol class="steps">
-        <li><strong>Load</strong> an example or open your own file.</li>
-        <li><strong>Edit</strong> the collection and its links.</li>
-        <li><strong>Export</strong> the JSON file to share or publish anywhere.</li>
-      </ol>
+      <p class="eyebrow">Open link packages · draft 0.1</p>
+      <h1>Playlists for the web.</h1>
+      <p>A <code>.urlpackage.json</code> file is a portable, versioned collection of websites with enough metadata for any app to present, edit, bookmark, remix, or publish it.</p>
+      <div class="explain">
+        <div><strong>Package metadata</strong><span>title, description, version, cover image, icon</span></div>
+        <div><strong>Link metadata</strong><span>URL, title, image, tags, notes, last-known-good</span></div>
+        <div><strong>Open exports</strong><span>JSON, Markdown, bookmarks HTML, and static pages</span></div>
+      </div>
       <div class="actions" aria-label="Start using URLPackage">
         <button id="load-example">Try the example</button>
         <label class="button">Open a package <input id="file" type="file" accept=".json,.urlpackage,application/json"></label>
-        <button id="download">Download package</button>
+        <button id="download-json">Download JSON</button>
       </div>
+    </section>
+
+    <section class="open-url">
+      <div>
+        <p class="eyebrow">Open from the web</p>
+        <h2>Load a package URL</h2>
+        <p class="hint">Paste a direct URL to a <code>.urlpackage.json</code> file. The host must allow browser CORS.</p>
+      </div>
+      <div class="url-loader"><input id="package-url" placeholder="https://example.com/list.urlpackage.json"><button id="load-url">Load URL</button></div>
     </section>
 
     <section class="tool" aria-label="URLPackage editor">
       <div>
         <p class="eyebrow">1. Describe the collection</p>
-        <h2>What is this link pack?</h2>
-        <p class="hint">This metadata helps browsers, apps, and people present the package nicely.</p>
-        <label>Package title<input id="title" placeholder="My research links"></label>
+        <h2>What should apps show before the links?</h2>
+        <p class="hint">This is the package card: what someone sees when they open or share the file.</p>
+        <label>Package title<input id="title" placeholder="Tokyo coffee guide"></label>
         <label>Short description<textarea id="description" rows="3" placeholder="A curated set of links about..."></textarea></label>
         <div class="split">
           <label>Version<input id="version" placeholder="0.1.0"></label>
           <label>Cover image URL<input id="image" placeholder="https://..."></label>
         </div>
+        <label>Icon / favicon URL<input id="icon" placeholder="https://..."></label>
 
         <p class="eyebrow step-label">2. Add links</p>
         <h2>What websites belong in it?</h2>
-        <p class="hint">Each link needs a URL. Titles, descriptions, and tags make the package easier to scan.</p>
+        <p class="hint">Add URLs and the decorations that make them portable outside your browser bookmarks.</p>
         <div id="links"></div>
         <button id="add-link">Add another link</button>
       </div>
 
       <div>
         <p class="eyebrow">3. Preview and export</p>
-        <h2>Shareable package <span id="status">Ready</span></h2>
-        <p class="hint">The preview shows how a client could display the package. The JSON below is the actual portable file.</p>
+        <h2>Portable output <span id="status">Ready</span></h2>
+        <p class="hint">Preview the package, then export it as the open JSON format or common sharing formats.</p>
         <article id="preview"></article>
         <p id="count"></p>
+        <div class="export-grid">
+          <button id="download-markdown">Markdown</button>
+          <button id="download-bookmarks">Bookmarks HTML</button>
+          <button id="download-page">Static page</button>
+        </div>
         <label>Package JSON<textarea id="json" spellcheck="false"></textarea></label>
       </div>
+    </section>
+
+    <section class="vision">
+      <p class="eyebrow">Why this exists</p>
+      <h2>Not bookmarks. Not a silo. A file.</h2>
+      <p>URLPackage is meant to sit above individual URLs and outside any one browser or app. You can attach it to a class, report, blog post, AI prompt, or research trail; someone else can open it, browse it, add to it, and export their own version.</p>
+      <p class="hint">Future <code>.urlpackage</code> bundles can be zip files containing <code>manifest.json</code> plus images and cached metadata. The plain JSON format stays the canonical, easy-to-read base.</p>
     </section>
 
     <footer>
