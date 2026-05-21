@@ -4,88 +4,91 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="URLPackage is an open format and browser tool for portable collections of links.">
-  <title>URLPackage</title>
+  <title>URLPackage Workbench</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <header class="topbar">
+    <strong>URLPackage Workbench</strong>
+    <nav>
+      <a href="schema/urlpackage.schema.json">Schema</a>
+      <a href="docs/spec.md">Spec</a>
+      <a href="examples/starter.urlpackage.json">Example</a>
+      <a href="https://github.com/teh33/urlpackage">GitHub</a>
+    </nav>
+  </header>
+
   <main>
-    <nav><strong>URLPackage</strong><a href="https://github.com/teh33/urlpackage">GitHub</a></nav>
-
-    <section class="intro">
-      <p class="eyebrow">Open link packages · draft 0.1</p>
-      <h1>Playlists for the web.</h1>
-      <p>A <code>.urlpackage.json</code> file is a portable, versioned collection of websites with enough metadata for any app to present, edit, bookmark, remix, or publish it.</p>
-      <div class="explain">
-        <div><strong>Package metadata</strong><span>title, description, version, cover image, icon</span></div>
-        <div><strong>Link metadata</strong><span>URL, title, image, tags, notes, last-known-good</span></div>
-        <div><strong>Open exports</strong><span>JSON, Markdown, bookmarks HTML, and static pages</span></div>
+    <section class="brief">
+      <div>
+        <p class="eyebrow">Draft 0.1 · local browser tool</p>
+        <h1>Open, edit, validate, and export link packages.</h1>
+        <p>A <code>.urlpackage.json</code> is a portable list of websites with package metadata and per-link decorations. No account. No backend. Files stay on your machine unless you publish them.</p>
       </div>
-      <div class="actions" aria-label="Start using URLPackage">
-        <button id="load-example">Try the example</button>
-        <label class="button">Open a package <input id="file" type="file" accept=".json,.urlpackage,application/json"></label>
-        <button id="download-json">Download JSON</button>
+      <div class="quick-actions" aria-label="Primary actions">
+        <button id="load-example">Load example</button>
+        <label class="button">Open file <input id="file" type="file" accept=".json,.urlpackage,application/json"></label>
+        <button id="download-json">Export JSON</button>
       </div>
     </section>
 
-    <section class="open-url">
+    <section class="load-panel">
       <div>
-        <p class="eyebrow">Open from the web</p>
-        <h2>Load a package URL</h2>
-        <p class="hint">Paste a direct URL to a <code>.urlpackage.json</code> file. The host must allow browser CORS.</p>
+        <h2>Load from URL</h2>
+        <p class="hint">Direct <code>.urlpackage.json</code> URL; requires CORS.</p>
       </div>
-      <div class="url-loader"><input id="package-url" placeholder="https://example.com/list.urlpackage.json"><button id="load-url">Load URL</button></div>
+      <div class="url-loader"><input id="package-url" placeholder="https://example.com/list.urlpackage.json"><button id="load-url">Load</button></div>
     </section>
 
-    <section class="tool" aria-label="URLPackage editor">
-      <div>
-        <p class="eyebrow">1. Describe the collection</p>
-        <h2>What should apps show before the links?</h2>
-        <p class="hint">This is the package card: what someone sees when they open or share the file.</p>
-        <label>Package title<input id="title" placeholder="Tokyo coffee guide"></label>
-        <label>Short description<textarea id="description" rows="3" placeholder="A curated set of links about..."></textarea></label>
+    <section class="workspace" aria-label="URLPackage editor">
+      <aside class="reference">
+        <h2>Format</h2>
+        <dl>
+          <dt>Package</dt><dd>title, description, version, cover image, icon</dd>
+          <dt>Links</dt><dd>URL, title, description, image, tags, status, last-known-good, notes</dd>
+          <dt>Exports</dt><dd>JSON, Markdown, bookmarks HTML, static HTML</dd>
+        </dl>
+        <pre>{
+  "urlpackage": "0.1",
+  "title": "Starter links",
+  "links": [
+    { "url": "https://example.com" }
+  ]
+}</pre>
+      </aside>
+
+      <section class="editor-pane">
+        <div class="pane-head"><h2>Editor</h2><span>Package metadata</span></div>
+        <label>Title<input id="title" placeholder="Tokyo coffee guide"></label>
+        <label>Description<textarea id="description" rows="3" placeholder="A curated set of links about..."></textarea></label>
         <div class="split">
           <label>Version<input id="version" placeholder="0.1.0"></label>
           <label>Cover image URL<input id="image" placeholder="https://..."></label>
         </div>
         <label>Icon / favicon URL<input id="icon" placeholder="https://..."></label>
 
-        <p class="eyebrow step-label">2. Add links</p>
-        <h2>What websites belong in it?</h2>
-        <p class="hint">Add URLs and the decorations that make them portable outside your browser bookmarks.</p>
+        <div class="pane-head links-head"><h2>Links</h2><button id="add-link">Add link</button></div>
         <div id="links"></div>
-        <button id="add-link">Add another link</button>
-      </div>
+      </section>
 
-      <div>
-        <p class="eyebrow">3. Preview and export</p>
-        <h2>Portable output <span id="status">Ready</span></h2>
-        <p class="hint">Preview the package, then export it as the open JSON format or common sharing formats.</p>
+      <section class="output-pane">
+        <div class="pane-head"><h2>Output</h2><span id="status">Ready</span></div>
         <article id="preview"></article>
         <p id="count"></p>
         <div class="export-grid">
-          <button id="download-markdown">Markdown</button>
-          <button id="download-bookmarks">Bookmarks HTML</button>
-          <button id="download-page">Static page</button>
+          <button id="download-markdown">Export Markdown</button>
+          <button id="download-bookmarks">Export bookmarks</button>
+          <button id="download-page">Export HTML page</button>
         </div>
-        <label>Package JSON<textarea id="json" spellcheck="false"></textarea></label>
-      </div>
+        <label>JSON<textarea id="json" spellcheck="false"></textarea></label>
+      </section>
     </section>
-
-    <section class="vision">
-      <p class="eyebrow">Why this exists</p>
-      <h2>Not bookmarks. Not a silo. A file.</h2>
-      <p>URLPackage is meant to sit above individual URLs and outside any one browser or app. You can attach it to a class, report, blog post, AI prompt, or research trail; someone else can open it, browse it, add to it, and export their own version.</p>
-      <p class="hint">Future <code>.urlpackage</code> bundles can be zip files containing <code>manifest.json</code> plus images and cached metadata. The plain JSON format stays the canonical, easy-to-read base.</p>
-    </section>
-
-    <footer>
-      <span>Open format, no account required.</span>
-      <a href="schema/urlpackage.schema.json">Schema</a>
-      <a href="docs/spec.md">Spec</a>
-      <a href="examples/starter.urlpackage.json">Example</a>
-    </footer>
   </main>
+
+  <footer>
+    <span>Open format. Static page. Browser-only workbench.</span>
+  </footer>
   <script src="app.js"></script>
 </body>
 </html>
